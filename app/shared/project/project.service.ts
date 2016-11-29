@@ -50,6 +50,13 @@ export class ProjectService {
       .catch(this.handleError)
   }
   
+  updateProjects(projects: Project[]): Promise<void> {
+    return this.http.put(`${this.projectsUrl}`, projects, {headers: this.headers})
+      .toPromise()
+      .catch(this.handleError)
+    
+  }
+  
   addPersonToProject(id: string, person: Person): Promise<void> {
     return this.http.post(`${this.projectsUrl}/${id}/people`, person, {headers: this.headers})
       .toPromise()

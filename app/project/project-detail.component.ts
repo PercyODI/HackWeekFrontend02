@@ -18,7 +18,7 @@ import { Project, Person, ProjectService } from '../shared/index';
 export class ProjectDetailComponent implements OnInit {
   project: Project;
   newPersonName: string = "";
-  editProjectNameFlag: bool = false;
+  editProjectName: boolean = false;
 
   constructor(
     private projectService: ProjectService,
@@ -49,7 +49,8 @@ export class ProjectDetailComponent implements OnInit {
   }
   
   toggleEditProjectName(): void {
-    this.editProjectNameFlag = !this.editProjectNameFlag;
+    this.editProjectName = !this.editProjectName;
+    console.log(this.editProjectName);
   }
   
   save(): void {
