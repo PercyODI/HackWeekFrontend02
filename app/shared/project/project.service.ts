@@ -44,14 +44,14 @@ export class ProjectService {
 
   // createProject(name: string, difficulty: number):
 
-  updateProject(id: string, body: any): Promise<void> {
-    return this.http.put(`${this.projectsUrl}/${id}`, body, {headers: this.headers})
+  updateProject(project: Project): Promise<void> {
+    return this.http.put(`${this.projectsUrl}/${project._id}`, project, {headers: this.headers})
       .toPromise()
       .catch(this.handleError)
   }
   
   addPersonToProject(id: string, person: Person): Promise<void> {
-    return this.http.put(`${this.projectsUrl}/${id}`, {add_person_to_project: person.name}, {headers: this.headers})
+    return this.http.post(`${this.projectsUrl}/${id}/people`, person, {headers: this.headers})
       .toPromise()
       .then(() => null)
       .catch(this.handleError)

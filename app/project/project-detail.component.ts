@@ -18,6 +18,7 @@ import { Project, Person, ProjectService } from '../shared/index';
 export class ProjectDetailComponent implements OnInit {
   project: Project;
   newPersonName: string = "";
+  editProjectNameFlag: bool = false;
 
   constructor(
     private projectService: ProjectService,
@@ -39,10 +40,19 @@ export class ProjectDetailComponent implements OnInit {
   addPersonToProject(): void {
     if(this.newPersonName && this.newPersonName != "" ) {
       let newPerson: Person = new Person(this.newPersonName);
-      this.projectService.addPersonToProject(this.project._id, newPerson);
-      this.project.people_on_project.push(newPerson);
+      this.projectService.addPersonToProject(this.project._id, newPerson)
+        .then(() => this.project.people_on_project.push(newPerson), 
+        () => console.log("Failed Promise"));
       this.newPersonName = "";
       console.dir(this.project);
     }
+  }
+  
+  toggleEditProjectName(): void {
+    this.editProjectNameFlag = !this.editProjectNameFlag;
+  }
+  
+  save(): void {
+    this.projectService.updateProject(this.project);
   }
 }
