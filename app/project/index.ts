@@ -6,3 +6,4 @@
  */
 export * from './find-projects.component';
 export * from './project-detail.component';
+export * from './project-edit.component';

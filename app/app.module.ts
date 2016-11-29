@@ -14,7 +14,8 @@ import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
 //Project Components
 import { 
   FindProjectsComponent, 
-  ProjectDetailComponent 
+  ProjectDetailComponent,
+  ProjectEditComponent
 } from './project/index';
 
 //Shared Models and Services
@@ -33,7 +34,8 @@ import {
   declarations: [ 
     AppComponent,
     FindProjectsComponent,
-    ProjectDetailComponent
+    ProjectDetailComponent,
+    ProjectEditComponent
   ],
   providers: [ ProjectService ],
   bootstrap:    [ AppComponent ]

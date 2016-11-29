@@ -1,6 +1,14 @@
-<h1 (click)="consoleProjects()">List of first <span *ngIf="projects">{{projects.length}}</span> Projects</h1>
-<ul class="projects">
-  <li *ngFor="let project of projects" (click)="gotoDetail(project._id)">
-    {{project.name}} at {{project.difficulty}} difficulty.
-  </li>
-</ul>
+<div>
+  <span class="h1" (click)="consoleProjects()">
+  List of first <span *ngIf="projects">{{projects.length}}</span> Projects
+  </span>
+  <button (click)="newProject()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+</div>
+
+<div>
+  <project-edit></project-edit>
+</div>
+
+<div *ngFor="let project of projects" (click)="gotoDetail(project._id)" class="well">
+  {{project.name}} at {{project.difficulty}} difficulty.
+</div>
