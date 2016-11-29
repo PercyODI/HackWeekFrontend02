@@ -8,6 +8,9 @@ import { AppComponent }  from './app.component';
 //Routing
 import { AppRoutingModule } from './app-routing.module';
 
+// ng2-bootstrap
+import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
+
 //Project Components
 import { 
   FindProjectsComponent, 
@@ -24,7 +27,8 @@ import {
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    Ng2BootstrapModule
   ],
   declarations: [ 
     AppComponent,

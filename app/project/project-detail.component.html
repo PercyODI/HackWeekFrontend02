@@ -1,3 +1,4 @@
+<alert dismissOnTimeout=3000>You are editing a project!</alert>
 <div *ngIf="project">
   <div *ngIf="!editProjectName">
     <h2>{{project.name}} <button (click)="toggleEditProjectName()">Edit</button></h2>

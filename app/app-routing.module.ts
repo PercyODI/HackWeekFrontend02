@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { 
     FindProjectsComponent,
@@ -13,7 +14,10 @@ const routes: Routes = [
     ];
     
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [
+        RouterModule.forRoot(routes),
+        Ng2BootstrapModule
+        ],
     exports: [RouterModule]
 })
 export class AppRoutingModule {}
