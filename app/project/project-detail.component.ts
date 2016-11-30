@@ -55,6 +55,9 @@ export class ProjectDetailComponent implements OnInit {
   }
   
   save(): void {
-    this.projectService.updateProject(this.project);
+    this.projectService.updateProject(this.project)
+      .then(
+        res => {this.project = res},
+        mes => console.log(mes));
   }
 }

@@ -6,7 +6,7 @@
 </div>
 
 <div *ngIf="isCreatingProject">
-  <project-edit></project-edit>
+  <project-edit (clickedSave)="clickedSave($event)"></project-edit>
 </div>
 
 <div *ngFor="let project of projects" (click)="gotoDetail(project._id)" class="well">

@@ -35,10 +35,10 @@ export class ProjectService {
       .catch(this.handleError);
   }
   
-  addProject(project: Project): Promise<void> {
-    return this.http.post(`${this.projectsUrl}`)
+  addProject(project: Project): Promise<Project> {
+    return this.http.post(`${this.projectsUrl}`, project, {headers: this.headers})
       .toPromise()
-      .then(() => null)
+      .then(response => response.json() as Project)
       .catch(this.handleError);
   }
 
@@ -51,9 +51,10 @@ export class ProjectService {
 
   // createProject(name: string, difficulty: number):
 
-  updateProject(project: Project): Promise<void> {
+  updateProject(project: Project): Promise<Project> {
     return this.http.put(`${this.projectsUrl}/${project._id}`, project, {headers: this.headers})
       .toPromise()
+      .then(response => response.json() as Project)
       .catch(this.handleError)
   }
   

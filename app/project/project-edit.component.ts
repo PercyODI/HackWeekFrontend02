@@ -1,7 +1,7 @@
 /**
  * Created by pears on 11/25/2016.
  */
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -18,6 +18,9 @@ import { Project, Person, ProjectService } from '../shared/index';
 export class ProjectEditComponent implements OnInit {
   @Input()
   project: Project = new Project();
+  
+  @Output()
+  clickedSave = new EventEmitter<boolean>();
 
   constructor(
     private projectService: ProjectService,
@@ -37,10 +40,13 @@ export class ProjectEditComponent implements OnInit {
   save(): void {
     if(!this.project._id){
       this.projectService.addProject(this.project)
-        .then(() => null, () => null)
+        .then(() => this.clickedSave.emit(true), (mes) => console.log(mes))
     } else {
       this.projectService.updateProject(this.project);
     }
+    
+    // Emit save action to parent
+    
   }
   
   consoleProject(): void {
