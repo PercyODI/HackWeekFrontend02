@@ -8,4 +8,11 @@ export class Project {
   name: string;
   difficulty: number;
   people_on_project: Person[];
+  
+  constructor(name?: string, difficulty?:number, people_on_project?:Person[])
+  {
+    this.name = name || "";
+    this.difficulty = difficulty || 0;
+    this.people_on_project = people_on_project || [];
+  }
 }

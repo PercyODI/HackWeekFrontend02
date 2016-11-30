@@ -1,1 +1,11 @@
-Project-edit.component
+<div>
+    <div class="form-group">
+        <label for="projectName">Project Name</label>
+        <input [(ngModel)]="project.name" class="form-control" id="projectName">
+    </div>
+    <div class="form-group">
+        <label for="projectDifficulty" (click)="consoleProject()">Difficulty</label>
+        <input [(ngModel)]="project.difficulty" class="form-control" id="projectDifficulty" type="number">
+    </div>
+    <button (click)="save()">Save Project</button>
+</div>

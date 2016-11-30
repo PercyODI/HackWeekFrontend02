@@ -14,7 +14,9 @@ import { Project, ProjectService } from '../shared/index';
 })
 export class FindProjectsComponent implements OnInit {
   projects: Project[];
-  selectedProject: Project;
+  isCreatingProject: boolean = false;
+  // selectedProject: Project;
+  
 
   constructor(
     private projectService: ProjectService,
@@ -41,5 +43,9 @@ export class FindProjectsComponent implements OnInit {
 
   gotoDetail(id: string): void {
     this.router.navigate(['/project-detail', id]);
+  }
+  
+  toggleIsCreatingProject(): void {
+    this.isCreatingProject = !this.isCreatingProject;
   }
 }

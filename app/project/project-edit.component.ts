@@ -1,7 +1,7 @@
 /**
  * Created by pears on 11/25/2016.
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -16,7 +16,8 @@ import { Project, Person, ProjectService } from '../shared/index';
   styleUrls: ['project-edit.component.css']
 })
 export class ProjectEditComponent implements OnInit {
-  project: Project;
+  @Input()
+  project: Project = new Project();
 
   constructor(
     private projectService: ProjectService,
@@ -32,12 +33,18 @@ export class ProjectEditComponent implements OnInit {
 //       .switchMap((params: Params) => this.projectService.getProject(params['id']))
 //       .subscribe(project => this.project = project);
 //   }
-
-  goBack(): void {
-    this.location.back();
-  }
   
   save(): void {
-    this.projectService.updateProject(this.project);
+    if(!this.project._id){
+      this.projectService.addProject(this.project)
+        .then(() => null, () => null)
+    } else {
+      this.projectService.updateProject(this.project);
+    }
+  }
+  
+  consoleProject(): void {
+    console.dir(this.project);
+    console.log(JSON.stringify(this.project))
   }
 }

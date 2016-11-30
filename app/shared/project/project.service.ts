@@ -34,9 +34,16 @@ export class ProjectService {
       .then(response => response.json() as Project)
       .catch(this.handleError);
   }
+  
+  addProject(project: Project): Promise<void> {
+    return this.http.post(`${this.projectsUrl}`)
+      .toPromise()
+      .then(() => null)
+      .catch(this.handleError);
+  }
 
-  deleteProject(id: string): Promise<void> {
-    return this.http.delete(`${this.projectsUrl}/${id}`)
+  deleteProject(project: Project): Promise<void> {
+    return this.http.delete(`${this.projectsUrl}/${project._id}`)
       .toPromise()
       .then(() => null)
       .catch(this.handleError);
@@ -48,13 +55,6 @@ export class ProjectService {
     return this.http.put(`${this.projectsUrl}/${project._id}`, project, {headers: this.headers})
       .toPromise()
       .catch(this.handleError)
-  }
-  
-  updateProjects(projects: Project[]): Promise<void> {
-    return this.http.put(`${this.projectsUrl}`, projects, {headers: this.headers})
-      .toPromise()
-      .catch(this.handleError)
-    
   }
   
   addPersonToProject(id: string, person: Person): Promise<void> {

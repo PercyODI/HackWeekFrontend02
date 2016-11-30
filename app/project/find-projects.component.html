@@ -2,10 +2,10 @@
   <span class="h1" (click)="consoleProjects()">
   List of first <span *ngIf="projects">{{projects.length}}</span> Projects
   </span>
-  <button (click)="newProject()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+  <button (click)="toggleIsCreatingProject()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 </div>
 
-<div>
+<div *ngIf="isCreatingProject">
   <project-edit></project-edit>
 </div>
 
