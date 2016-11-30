@@ -2,7 +2,7 @@
   <span class="h1" (click)="consoleProjects()">
   List of first <span *ngIf="projects">{{projects.length}}</span> Projects
   </span>
-  <button (click)="toggleIsCreatingProject()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+  <button (click)="toggleIsCreatingProject()" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i></button>
 </div>
 
 <div *ngIf="isCreatingProject">
@@ -10,5 +10,5 @@
 </div>
 
 <div *ngFor="let project of projects" (click)="gotoDetail(project._id)" class="well">
-  {{project.name}} at {{project.difficulty}} difficulty.
+  {{project.name}} at {{project.difficulty}} difficulty. Currently has {{project.people_on_project.length}} people on this project.
 </div>
