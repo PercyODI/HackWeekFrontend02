@@ -60,4 +60,9 @@ export class ProjectDetailComponent implements OnInit {
         res => {this.project = res},
         mes => console.log(mes));
   }
+  
+  removePersonFromProject(index: number) {
+    this.project.people_on_project.splice(index, 1);
+    this.save();
+  }
 }

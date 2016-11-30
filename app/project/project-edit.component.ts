@@ -20,7 +20,7 @@ export class ProjectEditComponent implements OnInit {
   project: Project = new Project();
   
   @Output()
-  clickedSave = new EventEmitter<boolean>();
+  clickedSave = new EventEmitter<Project>();
 
   constructor(
     private projectService: ProjectService,
@@ -40,7 +40,7 @@ export class ProjectEditComponent implements OnInit {
   save(): void {
     if(!this.project._id){
       this.projectService.addProject(this.project)
-        .then(() => this.clickedSave.emit(true), (mes) => console.log(mes))
+        .then((project) => this.clickedSave.emit(project), (mes) => console.log(mes))
     } else {
       this.projectService.updateProject(this.project);
     }

@@ -10,7 +10,8 @@
   <p>Difficulty: {{project.difficulty}}</p>
   <p>People on this project: </p>
   <ul>
-    <li *ngFor="let person of project.people_on_project">
+    <li *ngFor="let person of project.people_on_project; let i = index">
+      <button (click)="removePersonFromProject(i)"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
       {{person.name}}
       <p>Expertise: <span *ngFor="let skill of person.expertise; let finalSkill = last">{{skill}}{{finalSkill ? "" : ", "}}</span></p>
     </li>

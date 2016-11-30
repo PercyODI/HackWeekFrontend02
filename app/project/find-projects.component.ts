@@ -50,10 +50,11 @@ export class FindProjectsComponent implements OnInit {
   }
   
   // Catch emitted save action from edit child
-  clickedSave(isSaved: boolean) {
-    if(isSaved) {
-      this.toggleIsCreatingProject();
-      this.getProjects();
+  clickedSave(project: Project) {
+    if(project) {
+      // this.toggleIsCreatingProject();
+      // this.getProjects();
+      this.router.navigate(['/project-detail', project._id])
     }
   }
 }
