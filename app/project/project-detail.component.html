@@ -1,13 +1,20 @@
 <div *ngIf="project">
-  <div *ngIf="!editProjectName">
-    <span class="h2">{{project.name}}</span> <button (click)="toggleEditProjectName()"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+  <div *ngIf="!editProjectName" (mouseover)="mouseOver('name', true)" (mouseout)="mouseOver('name', false)">
+    <span class="h2">{{project.name}}</span> <button (click)="toggleEditProjectName()" *ngIf="mouseState.over.name"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Name</button>
   </div>
   <div *ngIf="editProjectName">
     <input [(ngModel)]="project.name"><button (click)="toggleEditProjectName(); save()">Save</button>
   </div>
 
-  <p *ngIf="project.description">Description: {{project.description}}</p>
-  <p>Difficulty: {{project.difficulty}}</p>
+  <div *ngIf="!editProjectDescription" (mouseover)="mouseOver('description', true)" (mouseout)="mouseOver('description', false)">
+    <span class="h3">Description:</span> {{project.description}} <button (click)="toggleEditProjectDescription()" *ngIf="mouseState.over.description"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Description</button>
+  </div>
+  <div *ngIf="editProjectDescription">
+    <input [(ngModel)]="project.description"><button (click)="toggleEditProjectDescription(); save()">Save</button>
+  </div>
+  <div>
+    <span class="h3">Difficulty:</span> {{project.difficulty}}
+  </div>
   <p class="h3">{{project.people_on_project.length}} People on this project: </p>
   <ul class="list-unstyled">
     <li *ngFor="let person of project.people_on_project; let i = index">

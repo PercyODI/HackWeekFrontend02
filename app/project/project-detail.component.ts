@@ -20,6 +20,12 @@ export class ProjectDetailComponent implements OnInit {
   project: Project;
   newPersonName: string = "";
   editProjectName: boolean = false;
+  editProjectDescription: boolean = false;
+  isMouseOverName: boolean = false;
+  mouseState: any = {
+    over: {}
+  }; // Refactor into a class so it's not a generic any type
+  mouseEventTimers: any = {};
 
   constructor(
     private projectService: ProjectService,
@@ -54,6 +60,10 @@ export class ProjectDetailComponent implements OnInit {
     console.log(this.editProjectName);
   }
   
+  toggleEditProjectDescription(): void {
+    this.editProjectDescription = !this.editProjectDescription;
+  }
+  
   save(): void {
     this.projectService.updateProject(this.project)
       .then(
@@ -70,5 +80,37 @@ export class ProjectDetailComponent implements OnInit {
   removePersonFromProject(index: number) {
     this.project.people_on_project.splice(index, 1);
     this.save();
+  }
+  
+  mouseOverName(isOver: boolean): void {
+    console.dir(this.mouseEventTimers);
+    if(this.mouseEventTimers.isMouseOverName) {
+      clearTimeout(this.mouseEventTimers.isMouseOverName);
+    }
+    if(isOver == false) {
+      this.mouseEventTimers.isMouseOverName = setTimeout(() => {
+        this.isMouseOverName = isOver;
+        }, 750);
+    } else {
+      this.isMouseOverName = isOver;
+    }
+  }
+  
+  mouseOver(element: string, isOver: boolean, timeout: number = 750): void {
+    console.dir(this.mouseState);
+    console.dir(this.mouseEventTimers);
+    if(this.mouseEventTimers[element]) {
+      clearTimeout(this.mouseEventTimers[element]);
+    }
+    if(isOver == false) {
+      this.mouseEventTimers[element] = setTimeout(() => {
+        this.mouseState.over[element] = isOver;
+        }, timeout);
+    } else {
+      for(var prop in this.mouseState.over) {
+        this.mouseState.over[prop] = false;
+      }
+      this.mouseState.over[element] = isOver;
+    }
   }
 }

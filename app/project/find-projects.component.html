@@ -9,6 +9,6 @@
   <project-edit (clickedSave)="clickedSave($event)"></project-edit>
 </div>
 
-<div *ngFor="let project of projects" (click)="gotoDetail(project._id)" class="well">
+<div *ngFor="let project of projects" (click)="gotoDetail(project._id)" class="well pointer">
   {{project.name}} at {{project.difficulty}} difficulty. Currently has {{project.people_on_project.length}} people on this project.
 </div>
