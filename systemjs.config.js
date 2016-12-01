@@ -29,6 +29,7 @@
       // other libraries
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
+      'lodash': 'node_modules/lodash/lodash.js',
       
       // ng2-bootstrap
       'moment': 'npm:moment/moment.js',

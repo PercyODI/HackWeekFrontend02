@@ -5,10 +5,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { AlertComponent } from 'ng2-bootstrap/ng2-bootstrap';
+import * as _ from 'lodash';
 
 import 'rxjs/add/operator/switchMap';
 
-import { Project, Person, ProjectService } from '../shared/index';
+import { Project, Person, Skill, ProjectService } from '../shared/index';
 
 @Component({
   moduleId: module.id,
@@ -21,6 +22,7 @@ export class ProjectDetailComponent implements OnInit {
   newPersonName: string = "";
   editProjectName: boolean = false;
   editProjectDescription: boolean = false;
+  editProjectDifficulty: boolean = false;
   isMouseOverName: boolean = false;
   mouseState: any = {
     over: {}
@@ -64,6 +66,10 @@ export class ProjectDetailComponent implements OnInit {
     this.editProjectDescription = !this.editProjectDescription;
   }
   
+  toggleEditProjectDifficulty(): void {
+    this.editProjectDifficulty = !this.editProjectDifficulty;
+  }
+  
   save(): void {
     this.projectService.updateProject(this.project)
       .then(
@@ -82,20 +88,6 @@ export class ProjectDetailComponent implements OnInit {
     this.save();
   }
   
-  mouseOverName(isOver: boolean): void {
-    console.dir(this.mouseEventTimers);
-    if(this.mouseEventTimers.isMouseOverName) {
-      clearTimeout(this.mouseEventTimers.isMouseOverName);
-    }
-    if(isOver == false) {
-      this.mouseEventTimers.isMouseOverName = setTimeout(() => {
-        this.isMouseOverName = isOver;
-        }, 750);
-    } else {
-      this.isMouseOverName = isOver;
-    }
-  }
-  
   mouseOver(element: string, isOver: boolean, timeout: number = 750): void {
     console.dir(this.mouseState);
     console.dir(this.mouseEventTimers);
@@ -112,5 +104,22 @@ export class ProjectDetailComponent implements OnInit {
       }
       this.mouseState.over[element] = isOver;
     }
+  }
+  
+  addSkillToPerson(person: Person, skillName: string, skillLevel: number): void {
+    if(skillName != "" && skillLevel != 0) {
+      let newSkill: Skill = new Skill(skillName, skillLevel);
+      if(!_.find(person.skills, newSkill)){
+        console.log(_.find(person.skills, newSkill));
+        console.log(person.skills);
+        person.skills.push(newSkill);
+        this.save();
+      }
+    }
+  }
+  
+  removeSkillFromPerson(person: Person, skill: Skill): void {
+    _.remove(person.skills, skill);
+    this.save();
   }
 }

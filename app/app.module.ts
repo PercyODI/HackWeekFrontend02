@@ -8,6 +8,9 @@ import { AppComponent }  from './app.component';
 //Routing
 import { AppRoutingModule } from './app-routing.module';
 
+// lodash
+import * as _ from 'lodash';
+
 // ng2-bootstrap
 import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
 
