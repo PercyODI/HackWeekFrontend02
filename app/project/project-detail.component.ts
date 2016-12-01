@@ -1,5 +1,5 @@
 /**
- * Created by pears on 11/25/2016.
+ * This component is used for displaying the details of a particular project
  */
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -20,15 +20,19 @@ import { Project, Person, Skill, ProjectService } from '../shared/index';
 export class ProjectDetailComponent implements OnInit {
   project: Project;
   newPersonName: string = "";
+  
+  // The following are flags for the view to decide when to show edit boxes
   editProjectName: boolean = false;
   editProjectDescription: boolean = false;
   editProjectDifficulty: boolean = false;
-  isMouseOverName: boolean = false;
+  
+  // The following is to track the state of the mouse location
   mouseState: any = {
     over: {}
-  }; // Refactor into a class so it's not a generic any type
+  }; 
   mouseEventTimers: any = {};
 
+  // Provides access to the projectService
   constructor(
     private projectService: ProjectService,
     private route: ActivatedRoute,
@@ -36,6 +40,7 @@ export class ProjectDetailComponent implements OnInit {
     private router: Router
   ) {}
 
+  // Calls the API for the project with the ID given in the url
   ngOnInit(): void {
     this.route.params
       .switchMap((params: Params) => this.projectService.getProject(params['id']))
@@ -46,17 +51,7 @@ export class ProjectDetailComponent implements OnInit {
     this.location.back();
   }
   
-  // addPersonToProject(): void {
-  //   if(this.newPersonName && this.newPersonName != "" ) {
-  //     let newPerson: Person = new Person(this.newPersonName);
-  //     this.projectService.addPersonToProject(this.project._id, newPerson)
-  //       .then(() => this.project.people_on_project.push(newPerson), 
-  //       () => console.log("Failed Promise"));
-  //     this.newPersonName = "";
-  //     console.dir(this.project);
-  //   }
-  // }
-  
+  // The following are functions that modify the editing flags
   toggleEditProjectName(): void {
     this.editProjectName = !this.editProjectName;
     console.log(this.editProjectName);
@@ -70,6 +65,7 @@ export class ProjectDetailComponent implements OnInit {
     this.editProjectDifficulty = !this.editProjectDifficulty;
   }
   
+  // Sends a copy of the entire project object to the API to store in database
   save(): void {
     this.projectService.updateProject(this.project)
       .then(
@@ -77,6 +73,7 @@ export class ProjectDetailComponent implements OnInit {
         mes => console.log(mes));
   }
   
+  // Modify the embedded array of Person objects
   addPersonToProject(personName: string): void {
     let newPerson: Person = new Person(personName);
     this.project.people_on_project.push(newPerson);
@@ -88,6 +85,7 @@ export class ProjectDetailComponent implements OnInit {
     this.save();
   }
   
+  // Function to track what mouse over behavior
   mouseOver(element: string, isOver: boolean, timeout: number = 750): void {
     console.dir(this.mouseState);
     console.dir(this.mouseEventTimers);
@@ -106,16 +104,18 @@ export class ProjectDetailComponent implements OnInit {
     }
   }
   
-  addSkillToPerson(person: Person, skillName: string, skillLevel: number): void {
-    if(skillName != "" && skillLevel != 0) {
-      let newSkill: Skill = new Skill(skillName, skillLevel);
+  addSkillToPerson(person: Person, skillName: string, skillLevel: string): void {
+    if(skillName != "" && skillLevel != "") {
+      let newSkill: Skill = new Skill(skillName, _.toNumber(skillLevel))
       if(!_.find(person.skills, newSkill)){
         console.log(_.find(person.skills, newSkill));
         console.log(person.skills);
         person.skills.push(newSkill);
         this.save();
+      } else {
+        console.log("Invalid Skill and Level");
       }
-    }
+    } 
   }
   
   removeSkillFromPerson(person: Person, skill: Skill): void {

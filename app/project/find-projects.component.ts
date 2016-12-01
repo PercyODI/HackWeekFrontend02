@@ -1,5 +1,5 @@
 /**
- * Created by pears on 11/25/2016.
+ * This component is for displaying a list of projects from the server
  */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -15,14 +15,14 @@ import { Project, ProjectService } from '../shared/index';
 export class FindProjectsComponent implements OnInit {
   projects: Project[];
   isCreatingProject: boolean = false;
-  // selectedProject: Project;
   
-
+  // Provides access to projectServer
   constructor(
     private projectService: ProjectService,
     private router: Router
   ) {}
 
+  // Calls the API to get a list of all projects
   ngOnInit(): void {
     this.getProjects();
   }
@@ -33,28 +33,26 @@ export class FindProjectsComponent implements OnInit {
       .then(projects => this.projects = projects);
   }
 
-  static isArray(obj: any) {
-    return typeof obj === 'array';
-  }
-
+  // Debuggin function
   consoleProjects(): void {
     console.dir(this.projects);
   }
 
+  // Takes the user to the project detail page
   gotoDetail(id: string): void {
     this.router.navigate(['/project-detail', id]);
   }
   
+  // Modifies the flag for creating a new project
   toggleIsCreatingProject(): void {
     this.isCreatingProject = !this.isCreatingProject;
   }
   
   // Catch emitted save action from edit child
+  // then route user to the detail page
   clickedSave(project: Project) {
     if(project) {
-      // this.toggleIsCreatingProject();
-      // this.getProjects();
-      this.router.navigate(['/project-detail', project._id])
+      this.gotoDetail(project._id);
     }
   }
 }
