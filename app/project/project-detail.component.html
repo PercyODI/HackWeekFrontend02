@@ -16,10 +16,14 @@
       </div>
       <div class="col-md-11">
         <span class="h4">{{person.name}}</span>
-        <p>Expertise: <span *ngFor="let skill of person.expertise; let finalSkill = last">{{skill}}{{finalSkill ? "" : ", "}}</span></p>
+        <p>Skills:
+          <span *ngFor="let skill of person.skills; let finalSkill = last">
+            {{skill}}{{finalSkill ? "" : ", "}}
+          </span>
+        </p>
       </div>
     </li>
-    <li><input [(ngModel)]="newPersonName" placeholder="Add Name"><button (click)="addPersonToProject()"><i class="fa fa-plus" aria-hidden="true"></i></button></li>
+    <li><input placeholder="Add Name" #addPersonInput><button (click)="addPersonToProject(addPersonInput.value)"><i class="fa fa-plus" aria-hidden="true"></i></button></li>
   </ul>
   <button (click)="goBack()">Back</button>
 </div>

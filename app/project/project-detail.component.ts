@@ -38,16 +38,16 @@ export class ProjectDetailComponent implements OnInit {
     this.location.back();
   }
   
-  addPersonToProject(): void {
-    if(this.newPersonName && this.newPersonName != "" ) {
-      let newPerson: Person = new Person(this.newPersonName);
-      this.projectService.addPersonToProject(this.project._id, newPerson)
-        .then(() => this.project.people_on_project.push(newPerson), 
-        () => console.log("Failed Promise"));
-      this.newPersonName = "";
-      console.dir(this.project);
-    }
-  }
+  // addPersonToProject(): void {
+  //   if(this.newPersonName && this.newPersonName != "" ) {
+  //     let newPerson: Person = new Person(this.newPersonName);
+  //     this.projectService.addPersonToProject(this.project._id, newPerson)
+  //       .then(() => this.project.people_on_project.push(newPerson), 
+  //       () => console.log("Failed Promise"));
+  //     this.newPersonName = "";
+  //     console.dir(this.project);
+  //   }
+  // }
   
   toggleEditProjectName(): void {
     this.editProjectName = !this.editProjectName;
@@ -59,6 +59,12 @@ export class ProjectDetailComponent implements OnInit {
       .then(
         res => {this.project = res},
         mes => console.log(mes));
+  }
+  
+  addPersonToProject(personName: string): void {
+    let newPerson: Person = new Person(personName);
+    this.project.people_on_project.push(newPerson);
+    this.save();
   }
   
   removePersonFromProject(index: number) {
